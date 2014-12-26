@@ -90,7 +90,7 @@
             		break;
             	
                 case "inside":
-                	var _inside = $('<div class="isloading-inside-container"></div>');
+                	var _inside = $('<div class="isloading-inside-wrapper"></div>');
                 	
                 	_inside.css({
                 		width: this.$element.width(),
@@ -101,7 +101,13 @@
                 	});
                 	
                 	this.$element.prepend(_inside);
-                	this.$element.find('.isloading-inside-container').html( this._loader );
+                	this.$element.find('.isloading-inside-wrapper').html( this._loader );
+                	
+                	this._loader.css({
+                		left: (this.$element.width() - this._loader.innerWidth()) / 2,
+                		top: (this.$element.height() - this._loader.innerHeight()) / 2,
+                		position: 'absolute'
+                	});
                     break;
                     
                 case "overlay":
@@ -111,10 +117,17 @@
                     }
                     else {
                         var pos = this.$element.position();
-                        this.$element.prepend( '<div class="isloading-overlay" style="position:absolute; top: ' + pos.top + 'px; left: ' + pos.left + 'px; z-index: 10000; background: rgba(0,0,0,0.5); width: ' + this.$element.outerWidth() + 'px; height: ' + this.$element.outerHeight() + 'px;" />' );
+                        $( "body" ).prepend( '<div class="isloading-overlay" style="position:absolute; top: ' + pos.top + 'px; left: ' + pos.left + 'px; z-index: 10000; background: rgba(0,0,0,0.5); width: ' + this.$element.outerWidth() + 'px; height: ' + this.$element.outerHeight() + 'px;" />' );
                     }
 
                     this.$element.find(".isloading-overlay").html( this._loader );
+                    this._loader.css({
+                		left: (this.$element.width() - this._loader.innerWidth()) / 2,
+                		top: (this.$element.height() - this._loader.innerHeight()) / 2,
+                		position: 'absolute',
+                		'z-index': 90000
+                	});
+                    
                     break;
 
                 default:
@@ -131,6 +144,10 @@
 
                 $( ".isloading-overlay" ).remove();
 
+            } else if ("inside" === this.options.position) {
+            	
+            	this.$element.find( ".isloading-inside-wrapper" ).remove();
+            	
             } else {
 
                 $( this._loader ).remove();
