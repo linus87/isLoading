@@ -16,7 +16,8 @@
 	text-align: center;
 }
 
-.isloading-overlay .isloading-wrapper {
+.isloading-overlay .isloading-wrapper,
+.isloading-inside-wrapper .isloading-inside {
 	background: #FFF;
 	-webkit-border-radius: 7px;
 	-webkit-background-clip: padding-box;
@@ -27,6 +28,4 @@
 	display: inline-block;
 	margin: 0 auto;
 	padding: 10px 20px;
-	top: 40%;
-	z-index: 9000;
 }
